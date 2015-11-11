@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
+
+    <script type="text/javascript" src="/_reactor/debug.js"></script>
+    <script type="text/javascript" src="/elm.js"></script>
+  </head>
+  <body>
+    <script>
+      var main = Elm.fullscreenDebug('Main', 'src/Main.elm', { input: { categories: [], levels: [], questions: [] } });
+
+      var input = {
+          categories: [ "Kategoria 1", "Kategoria 2", "Kategoria 3", "Kategoria 4" ]
+        , levels: [ 100, 200, 500, 1000, 1500 ]
+        , questions: [
+              { category: "Kategoria 1"
+              , level: 100
+              , question: "Ile to jest 2 + 2?"
+              , answer: "http://localhost:8000/questions/1.html"
+              }
+            , { category: "Kategoria 2"
+              , level: 100
+              , question: "Ile to jest 2 + 2?"
+              , answer: "http://localhost:8000/questions/1.html"
+              }
+            , { category: "Kategoria 3"
+              , level: 100
+              , question: "Ile to jest 2 + 2?"
+              , answer: "http://localhost:8000/questions/1.html"
+              }
+            , { category: "Kategoria 4"
+              , level: 100
+              , question: "Ile to jest 2 + 2?"
+              , answer: "http://localhost:8000/questions/1.html"
+              }
+            , { category: "Kategoria 1"
+              , level: 200
+              , question: "Ile to jest 2 + 2?"
+              , answer: "http://localhost:8000/questions/1.html"
+              }
+            , { category: "Kategoria 2"
+              , level: 200
+              , question: "Ile to jest 2 + 2?"
+              , answer: "http://localhost:8000/questions/1.html"
+              }
+            , { category: "Kategoria 3"
+              , level: 200
+              , question: "Ile to jest 2 + 2?"
+              , answer: "http://localhost:8000/questions/1.html"
+              }
+            , { category: "Kategoria 4"
+              , level: 200
+              , question: "Ile to jest 2 + 2?"
+              , answer: "http://localhost:8000/questions/1.html"
+              }
+            , { category: "Kategoria 1"
+              , level: 500
+              , question: "Ile to jest 2 + 2?"
+              , answer: "http://localhost:8000/questions/1.html"
+              }
+            , { category: "Kategoria 2"
+              , level: 500
+              , question: "Ile to jest 2 + 2?"
+              , answer: "http://localhost:8000/questions/1.html"
+              }
+            , { category: "Kategoria 3"
+              , level: 500
+              , question: "Ile to jest 2 + 2?"
+              , answer: "http://localhost:8000/questions/1.html"
+              }
+            , { category: "Kategoria 4"
+              , level: 500
+              , question: "Ile to jest 2 + 2?"
+              , answer: "http://localhost:8000/questions/1.html"
+              }
+            , { category: "Kategoria 1"
+              , level: 1000
+              , question: "Ile to jest 2 + 2?"
+              , answer: "http://localhost:8000/questions/1.html"
+              }
+            , { category: "Kategoria 2"
+              , level: 1000
+              , question: "Ile to jest 2 + 2?"
+              , answer: "http://localhost:8000/questions/1.html"
+              }
+            , { category: "Kategoria 3"
+              , level: 1000
+              , question: "Ile to jest 2 + 2?"
+              , answer: "http://localhost:8000/questions/1.html"
+              }
+            , { category: "Kategoria 4"
+              , level: 1000
+              , question: "Ile to jest 2 + 2?"
+              , answer: "http://localhost:8000/questions/1.html"
+              }
+            , { category: "Kategoria 1"
+              , level: 1500
+              , question: "Ile to jest 2 + 2?"
+              , answer: "http://localhost:8000/questions/1.html"
+              }
+            , { category: "Kategoria 2"
+              , level: 1500
+              , question: "Ile to jest 2 + 2?"
+              , answer: "http://localhost:8000/questions/1.html"
+              }
+            , { category: "Kategoria 3"
+              , level: 1500
+              , question: "Ile to jest 2 + 2?"
+              , answer: "http://localhost:8000/questions/1.html"
+              }
+            , { category: "Kategoria 4"
+              , level: 1500
+              , question: "Ile to jest 2 + 2?"
+              , answer: "http://localhost:8000/questions/1.html"
+              }
+          ]
+      };
+
+      main.ports.input.send(input);
+    </script>
+
+    <!-- jQuery first, then Bootstrap JS. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>
+  </body>
+</html>
