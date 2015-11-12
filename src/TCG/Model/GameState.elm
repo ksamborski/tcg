@@ -8,4 +8,7 @@ type alias GameState =
   , questions : List Question
   , active_team : Int
   , active_question : Maybe (String, Int)
+  , seconds_left : Int
+  , timer_stopped : Bool
+  , show_answer : Bool
   }

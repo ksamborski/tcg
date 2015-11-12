@@ -8,11 +8,13 @@ import Time exposing (Time)
 
 import TCG.Model.InputData exposing (..)
 import TCG.Action.Start exposing (..)
+import TCG.Action.Question exposing (..)
 
 type TcgAction
   = NoOp
   | Input InputData
   | StartAction TcgStartAction
+  | QuestionAction TcgQuestionAction
   | StartGame
   | Randomize Time
   | ShowQuestion String Int

@@ -7,8 +7,8 @@ import TCG.Model exposing (..)
 import TCG.Action.Start exposing (..)
 import TCG.Action exposing (..)
 
-update : TcgStartAction -> TcgState -> (TcgState, Effects TcgAction)
-update action (TcgState s) =
+update : TcgStartAction -> TcgStateRecord -> (TcgState, Effects TcgAction)
+update action s =
   case action of
     TeamsNumberChanged n ->
       let len = Array.length s.teams

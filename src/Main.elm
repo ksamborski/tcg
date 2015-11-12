@@ -4,6 +4,7 @@ import Effects exposing (..)
 import StartApp
 import Task
 import Array exposing (..)
+import Time exposing (..)
 
 import TCG.Model exposing (..)
 import TCG.Model.InputData exposing (..)
@@ -11,13 +12,17 @@ import TCG.View exposing (..)
 import TCG.View.Start as Start
 import TCG.Controller exposing (..)
 import TCG.Action exposing (..)
+import TCG.Action.Question exposing (..)
 
 app =
   StartApp.start
     { init = init
     , update = update
     , view = view
-    , inputs = [ Signal.map Input input ]
+    , inputs = [ Signal.map Input input
+               , Signal.map (always (QuestionAction UpdateTimerSeconds))
+                   <| every second
+               ]
     }
 
 init : (TcgState, Effects TcgAction)
@@ -36,6 +41,9 @@ init =
              , questions = []
              , active_team = 0
              , active_question = Nothing
+             , seconds_left = 30
+             , timer_stopped = False
+             , show_answer = False
              }
     }
   , Effects.none

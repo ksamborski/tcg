@@ -11,6 +11,7 @@ import Maybe exposing (withDefault)
 
 import TCG.Action exposing (..)
 import TCG.Controller.Start as Start
+import TCG.Controller.Question as Question
 import TCG.Model.GameState exposing (..)
 import TCG.Model.Question exposing (..)
 import TCG.Model.InputData exposing (..)
@@ -22,15 +23,21 @@ update : TcgAction -> TcgState -> (TcgState, Effects TcgAction)
 update action (TcgState s) =
   case action of
     Input d -> (TcgState { s | data <- d }, Effects.none)
-    StartAction a -> Start.update a (TcgState s)
+    StartAction a -> Start.update a s
     StartGame -> (TcgState s, Effects.tick Randomize)
+    QuestionAction a -> Question.update a s
     Randomize t ->
       (TcgState { s | activeView <- Game.view
-                    , game <- randomize s (initialSeed <| round <| inMilliseconds t)}
+                    , game <- randomize s
+                            <| initialSeed <| round <| inMilliseconds t
+                }
       , Effects.none)
     ShowQuestion cat lev ->
       let sgame = s.game
-      in ( TcgState { s | game <- { sgame | active_question <- Just (cat, lev) }
+      in ( TcgState { s | game <- { sgame | active_question <- Just (cat, lev)
+                                          , seconds_left <- 30
+                                          , timer_stopped <- False
+                                  }
                         , activeView <- Question.view
                     }
          , Effects.none)
@@ -50,6 +57,9 @@ randomize state seed =
      , questions = randomQuestions seed cats levs state.data.questions
      , active_team = 0
      , active_question = Nothing
+     , seconds_left = 30
+     , timer_stopped = False
+     , show_answer = False
      }
 
 randomQuestions : Seed -> List String -> List Int -> List InputQuestion -> List Question
