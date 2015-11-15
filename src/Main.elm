@@ -4,8 +4,8 @@ import Effects exposing (..)
 import StartApp
 import Task
 import Array exposing (..)
-import Time exposing (..)
 import Dict
+import Html
 
 import TCG.Model exposing (..)
 import TCG.Model.InputData exposing (..)
@@ -13,8 +13,10 @@ import TCG.View exposing (..)
 import TCG.View.Start as Start
 import TCG.Controller exposing (..)
 import TCG.Action exposing (..)
-import TCG.Action.Question exposing (..)
+import TCG.Model.Translation as Translation
+import TCG.Translation.En as En
 
+app : StartApp.App TcgState
 app =
   StartApp.start
     { init = init
@@ -44,12 +46,14 @@ init =
              , show_answer = False
              , last_tick = Nothing
              }
+    , active_tr = Translation.En
+    , tr = En.translation
     }
   , Effects.none
   )
 
-main =
-  app.html
+main : Signal Html.Html
+main = app.html
 
 port tasks : Signal (Task.Task Never ())
 port tasks =

@@ -4,7 +4,6 @@ import Effects exposing (Effects)
 import Time exposing (..)
 
 import TCG.Model exposing (..)
-import TCG.Model.GameState exposing (..)
 import TCG.Action exposing (..)
 import TCG.Action.Question exposing (..)
 

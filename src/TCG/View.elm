@@ -1,9 +1,7 @@
 module TCG.View where
 
 import Html exposing (..)
-import Html.Attributes exposing (..)
 import Signal exposing (..)
-import List
 
 import TCG.Model exposing (..)
 import TCG.Action exposing (TcgAction)

@@ -11,6 +11,7 @@ import Dict
 import TCG.Model exposing (TcgState(..), TcgStateRecord)
 import TCG.Model.Question exposing (..)
 import TCG.Model.Team exposing (..)
+import TCG.Model.Translation exposing (..)
 import TCG.Action exposing (..)
 
 view : Address TcgAction -> TcgState -> Html
@@ -18,14 +19,10 @@ view address (TcgState state) =
   div [ class "card" ]
   [ div [ class "card-block" ]
     [ h4 [ class "card-title" ]
-      [ text "Choose your question" ]
+      [ text state.tr.game.chooseQuestion ]
     , p [ class "card-text" ]
-      [ text "Team "
-      , text (
-          let (Just t) = Array.get state.game.active_team state.teams
-          in t.teamName
-        )
-      , text "'s turn"
+      [ let (Just t) = Array.get state.game.active_team state.teams
+        in text <| state.tr.game.teamTurn t.teamName
       ]
     ]
   , div [ class "card-block" ]
@@ -37,21 +34,21 @@ view address (TcgState state) =
       ]
     ]
   , div [ class "card-footer" ]
-    [ h4 [ class "card-title" ] [ text "Scores" ]
+    [ h4 [ class "card-title" ] [ text state.tr.game.scores ]
     , table [ class "table table-bordered" ]
       [ tbody []
         [ tr []
-          (List.map renderScore <| Array.toList state.teams)
+          (List.map (renderScore state.tr) <| Array.toList state.teams)
         ]
       ]
     ]
   ]
 
-renderScore : Team -> Html
-renderScore t =
+renderScore : Translation -> Team -> Html
+renderScore tr t =
   td [ class "text-center" ]
   [ b []
-    [ text "Team ", text t.teamName ]
+    [ text (tr.game.teamScore t.teamName) ]
   , text ": "
   , text (toString t.teamScore)
   ]

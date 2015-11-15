@@ -5,7 +5,6 @@ import Html.Events exposing (..)
 import Html.Attributes exposing (..)
 import Signal exposing (..)
 import List
-import Array
 import Dict
 
 import TCG.Action exposing (..)
@@ -20,7 +19,7 @@ view address (TcgState state) =
   in div [ class "card" ]
   [ div [ class "card-block" ]
     [ h4 [ class "card-title" ]
-      [ text "Question"
+      [ text state.tr.question.question
       ]
     , h1 [ class "text-center" ] [ text q.question ]
     ]
@@ -33,7 +32,7 @@ render_timer : Address TcgAction -> TcgStateRecord -> Html
 render_timer address state =
   div [ class "card-footer" ]
   [ h4 [ class "card-title" ]
-    [ text "Clock is ticking..." ]
+    [ text state.tr.question.clockTicking ]
   , h1 [ class "text-muted text-center", style [("font-size", "180px")] ]
     [ text (toString state.game.seconds_left)
     ]
@@ -42,13 +41,13 @@ render_timer address state =
            [ button [ class "btn btn-lg btn-primary"
                     , onClick address (QuestionAction ShowAnswer)
                     ]
-             [ text "Show answer" ]
+             [ text state.tr.question.showAnswer ]
            ]
       else div [ class "text-center" ]
            [ button [ class "btn btn-lg btn-primary"
                     , onClick address (QuestionAction StopTimer)
                     ]
-             [ text "Stop the timer!" ]
+             [ text state.tr.question.stopTimer ]
            ]
   ]
 
@@ -56,7 +55,7 @@ render_answer : Address TcgAction -> TcgStateRecord -> Question -> Html
 render_answer address state q =
   div [ class "card-footer" ]
   [ h4 [ class "card-title" ]
-    [ text "And the answer is..." ]
+    [ text state.tr.question.answer ]
   , iframe [ class "card"
            , style [("width", "100%"), ("height", "500px")]
            , src q.answer
@@ -69,11 +68,11 @@ render_answer address state q =
                (if state.game.timer_stopped
                 then [onClick address (AddPoints True)]
                 else []))
-        [ text "I knew the answer!" ]
+        [ text state.tr.question.answerOk ]
       , button [ class "btn btn-danger"
                , onClick address (AddPoints False)
                ]
-        [ text "I lost everything..." ]
+        [ text state.tr.question.answerBad ]
       ]
     ]
   ]

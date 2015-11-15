@@ -8,6 +8,7 @@ import Array
 import List
 
 import TCG.Model exposing (TcgState(..))
+import TCG.Model.Translation exposing (..)
 import TCG.Model.Team exposing (..)
 import TCG.Action exposing (..)
 import TCG.Action.Start exposing (..)
@@ -17,12 +18,32 @@ view address (TcgState state) =
   div [ class "row", style [ ("margin-top", "50px") ] ]
   [ div [ class "col-md-8 col-md-offset-2" ]
     [ div [ class "card card-block card-inverse card-success"]
-      [ h4 [ class "card-title" ] [ text "Welcome" ]
-      , p [ class "card-text" ] [ text "Please choose some of the game parameters." ]
+      [ h4 [ class "card-title" ] [ text state.tr.start.welcome ]
+      , p [ class "card-text" ] [ text state.tr.start.chooseParameters ]
       , Html.form []
         [ div [ class "form-group row" ]
            [ label [ class "col-md-4 form-control-label" ]
-             [ text "Number of teams" ]
+             [ text state.tr.start.language ]
+           , div [ class "col-md-8" ]
+             [ select
+               [ class "form-control"
+               , on "change" targetValue
+                 (intMessage address (ChangeLanguage << intToLang) 0)
+               ]
+               [ option [ value (toString <| langToInt En)
+                        , selected (state.active_tr == En)
+                        ]
+                        [ text "En" ]
+               , option [ value (toString <| langToInt Pl)
+                        , selected (state.active_tr == Pl)
+                        ]
+                        [ text "Pl" ]
+               ]
+             ]
+           ]
+        , div [ class "form-group row" ]
+           [ label [ class "col-md-4 form-control-label" ]
+             [ text state.tr.start.numberOfTeams ]
            , div [ class "col-md-8" ]
              [ input [ type' "number"
                      , class "form-control"
@@ -38,7 +59,7 @@ view address (TcgState state) =
            ]
         , div [ class "form-group row" ]
           [ label [ class "col-md-4 form-control-label" ]
-            [ text "Number of categories" ]
+            [ text state.tr.start.numberOfCategories ]
           , div [ class "col-md-8" ]
             [ select
               [ class "form-control"
@@ -54,7 +75,7 @@ view address (TcgState state) =
           ]
         , div [ class "form-group row" ]
           [ label [ class "col-md-4 form-control-label" ]
-            [ text "Number of questions" ]
+            [ text state.tr.start.numberOfQuestions ]
           , div [ class "col-md-8" ]
             [ select
               [ class "form-control"
@@ -70,23 +91,24 @@ view address (TcgState state) =
           ]
         ]
       , div [ class "card-footer", style [ ("color", "#333") ] ]
-        (List.map (renderTeam address) <| Array.toIndexedList state.teams)
+        (List.map (renderTeam address state.tr)
+          <| Array.toIndexedList state.teams)
       , button
         [ class "pull-right btn btn-warning"
         , style [("margin-top", "20px")]
         , onClick address StartGame
         ]
-        [ text "Play!" ]
+        [ text state.tr.start.play ]
       , div [ style [ ("clear", "both") ] ] []
       ]
     ]
   ]
 
-renderTeam : Address TcgAction -> (Int, Team) -> Html
-renderTeam a (i, t) =
+renderTeam : Address TcgAction -> Translation -> (Int, Team) -> Html
+renderTeam a tr (i, t) =
   div [ class "form-group row" ]
   [ label [ class "col-md-4 form-control-label" ]
-    [ text <| "Team " ++ (toString <| i + 1) ++ " name"
+    [ text <| tr.start.teamsName (i + 1)
     ]
   , div [ class "col-md-8" ]
     [ input [ type' "text"

@@ -16,15 +16,26 @@ import TCG.Controller.Question as Question
 import TCG.Model.GameState exposing (..)
 import TCG.Model.Question exposing (..)
 import TCG.Model.InputData exposing (..)
+import TCG.Model.Translation as Translation
 import TCG.Model exposing (..)
 import TCG.View.Start as Start
 import TCG.View.Game as Game
 import TCG.View.EndGame as EndGame
 import TCG.View.Question as Question
 
+import TCG.Translation.En as En
+import TCG.Translation.Pl as Pl
+
 update : TcgAction -> TcgState -> (TcgState, Effects TcgAction)
 update action (TcgState s) =
   case action of
+    ChangeLanguage lang ->
+      ( TcgState { s | active_tr <- lang
+                     , tr <- case lang of
+                              Translation.En -> En.translation
+                              Translation.Pl -> Pl.translation
+                 }
+      , Effects.none)
     Input d -> (TcgState { s | data <- d }, Effects.none)
     StartAction a -> Start.update a s
     StartGame -> (TcgState s, Effects.tick Randomize)

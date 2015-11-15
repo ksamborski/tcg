@@ -7,6 +7,7 @@ import Result exposing (toMaybe)
 import Time exposing (Time)
 
 import TCG.Model.InputData exposing (..)
+import TCG.Model.Translation exposing (..)
 import TCG.Action.Start exposing (..)
 import TCG.Action.Question exposing (..)
 
@@ -20,6 +21,7 @@ type TcgAction
   | ShowQuestion String Int
   | AddPoints Bool
   | Restart
+  | ChangeLanguage Language
 
 intMessage : Address TcgAction -> (Int -> TcgAction) -> Int -> String -> Message
 intMessage address a d v =
