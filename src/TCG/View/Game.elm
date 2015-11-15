@@ -6,6 +6,7 @@ import Html.Attributes exposing (..)
 import Signal exposing (..)
 import List
 import Array
+import Dict
 
 import TCG.Model exposing (TcgState(..), TcgStateRecord)
 import TCG.Model.Question exposing (..)
@@ -61,8 +62,9 @@ renderCategory cat = th [ class "text-center" ] [ text cat ]
 renderRow : Address TcgAction -> TcgStateRecord -> Int -> Html
 renderRow address state level =
   tr []
-    <| List.map (\q -> renderQuestion address state q) 
-    <| List.filter (\q -> q.level == level) state.game.questions
+    <| List.map (\q -> renderQuestion address state q)
+    <| List.filter (\q -> q.level == level)
+    <| Dict.values state.game.questions
 
 renderQuestion : Address TcgAction -> TcgStateRecord -> Question -> Html
 renderQuestion address state q =

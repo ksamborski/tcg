@@ -14,15 +14,19 @@ update action s =
       let len = Array.length s.teams
       in (TcgState
            { s | teams <- if n > len
-                           then Array.append s.teams (Array.repeat (n - len) { teamName = "", teamScore = 0})
+                           then Array.append s.teams
+                                (Array.repeat (n - len) { teamName = ""
+                                                        , teamScore = 0
+                                                        })
                            else Array.slice 0 n s.teams
            }
          , Effects.none
          )
     TeamNameChanged i v ->
       let (Just team) = Array.get i s.teams
-      in (TcgState {s | teams <- Array.set i { team | teamName <- v } s.teams }
-         , Effects.none
-         )
+      in (TcgState {s | teams <- Array.set i { team | teamName <- v }
+                                           s.teams
+                   }
+         , Effects.none)
     CategoryNumChanged i -> (TcgState {s | cat_num <- i}, Effects.none)
     QuestionsNumChanged i -> (TcgState {s | level_num <- i}, Effects.none)

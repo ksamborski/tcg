@@ -1,9 +1,9 @@
 module TCG.Action.Question where
 
+import Time exposing (Time)
+
 type TcgQuestionAction
-  = UpdateTimerSeconds
+  = UpdateTimerSeconds Time
   | StopTimer
   | ShowAnswer
-  | GoodAnswer
-  | BadAnswer
 

@@ -5,6 +5,7 @@ import StartApp
 import Task
 import Array exposing (..)
 import Time exposing (..)
+import Dict
 
 import TCG.Model exposing (..)
 import TCG.Model.InputData exposing (..)
@@ -19,10 +20,7 @@ app =
     { init = init
     , update = update
     , view = view
-    , inputs = [ Signal.map Input input
-               , Signal.map (always (QuestionAction UpdateTimerSeconds))
-                   <| every second
-               ]
+    , inputs = [ Signal.map Input input ]
     }
 
 init : (TcgState, Effects TcgAction)
@@ -38,12 +36,13 @@ init =
     , activeView = Start.view
     , game = { categories = []
              , levels = []
-             , questions = []
+             , questions = Dict.empty
              , active_team = 0
              , active_question = Nothing
              , seconds_left = 30
              , timer_stopped = False
              , show_answer = False
+             , last_tick = Nothing
              }
     }
   , Effects.none

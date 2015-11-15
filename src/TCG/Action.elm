@@ -18,6 +18,8 @@ type TcgAction
   | StartGame
   | Randomize Time
   | ShowQuestion String Int
+  | AddPoints Bool
+  | Restart
 
 intMessage : Address TcgAction -> (Int -> TcgAction) -> Int -> String -> Message
 intMessage address a d v =
