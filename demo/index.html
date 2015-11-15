@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>TCG Demo</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
+
+    <script type="text/javascript" src="tcg.js"></script>
+  </head>
+  <body>
+    <script>
+      var main = Elm.fullscreen(Elm.Main, { input: { categories: [], levels: [], questions: [] } });
+
+      var input = {
+          categories: [ "Ryby", "Płazy", "Gady" ]
+        , levels: [ 100, 200, 500, 1000, 1100 ]
+        , questions: [
+            { category: "Ryby"
+            , level: 100
+            , question: "Jaki jest narząd wymiany gazowej u ryb?"
+            , answer: "questions/ryby1.html"
+            },
+            { category: "Ryby"
+            , level: 100
+            , question: "Ryby są zmiennocieplne czy stałocieplne?"
+            , answer: "questions/ryby2.html"
+            },
+            { category: "Ryby"
+            , level: 100
+            , question: "Jak nazywamy jaja ryb?"
+            , answer: "questions/ryby3.html"
+            },
+            { category: "Ryby"
+            , level: 100
+            , question: "Czym pokryta jest skóra ryb?"
+            , answer: "questions/ryby4.html"
+            },
+            { category: "Ryby"
+            , level: 200
+            , question: "Wymień dwa gatunki ryb które odbywają wędrówki na tarło?"
+            , answer: "questions/ryby5.html"
+            },
+            { category: "Ryby"
+            , level: 200
+            , question: "Co to jest tarło?"
+            , answer: "questions/ryby6.html"
+            },
+            { category: "Ryby"
+            , level: 200
+            , question: "Czego wytworem są łuski u ryb?"
+            , answer: "questions/ryby7.html"
+            },
+            { category: "Ryby"
+            , level: 200
+            , question: "Czy skróa ryb jest pokryta śluzem?"
+            , answer: "questions/ryby8.html"
+            },
+            { category: "Ryby"
+            , level: 500
+            , question: "Ryby dzielimy na chrzęstnoszkieletowe i ...?"
+            , answer: "questions/ryby9.html"
+            },
+            { category: "Ryby"
+            , level: 500
+            , question: "Podaj przykład ryby chrzęstnoszkieletowej."
+            , answer: "questions/ryby10.html"
+            },
+            { category: "Ryby"
+            , level: 500
+            , question: "Podaj przykład ryby kostnoszkieletowej."
+            , answer: "questions/ryby11.html"
+            },
+            { category: "Ryby"
+            , level: 500
+            , question: "Do czego służy rybom pęcherz pławny?"
+            , answer: "questions/ryby12.html"
+            },
+            { category: "Ryby"
+            , level: 1000
+            , question: "Do czego służy rybom linia naboczna?"
+            , answer: "questions/ryby13.html"
+            },
+            { category: "Ryby"
+            , level: 1000
+            , question: "Wymień 3 przykłady krajowych przedstawicieli gromady ryb."
+            , answer: "questions/ryby14.html"
+            },
+            { category: "Ryby"
+            , level: 1000
+            , question: "Jaki rodzaj zapłodnienia występuje u ryb?"
+            , answer: "questions/ryby15.html"
+            },
+            { category: "Ryby"
+            , level: 1000
+            , question: "Jak nazywamy stado ryb?"
+            , answer: "questions/ryby16.html"
+            },
+            { category: "Ryby"
+            , level: 1100
+            , question: "Wymień parzyste płetwy ryb."
+            , answer: "questions/ryby17.html"
+            },
+            { category: "Ryby"
+            , level: 1100
+            , question: "Wymień nieparzyste pletwy ryb."
+            , answer: "questions/ryby18.html"
+            },
+            { category: "Ryby"
+            , level: 1100
+            , question: "Worek wypełniony mieszaniną gazów, pozwalający rybom na zanurzenie bez utraty energii to?"
+            , answer: "questions/ryby19.html"
+            },
+            { category: "Ryby"
+            , level: 1100
+            , question: "Młode rybki rozwijające się z ikry to?"
+            , answer: "questions/ryby20.html"
+            },
+            { category: "Ryby"
+            , level: 1100
+            , question: "Płynny tłuszcz uzyskiwany z wątroby ryb to?"
+            , answer: "questions/ryby21.html"
+            },
+            { category: "Płazy"
+            , level: 100
+            , question: "Plazy są organizmami dwuśrodowiskowymi. Dlaczego?"
+            , answer: "questions/plazy1.html"
+            },
+            { category: "Płazy"
+            , level: 100
+            , question: "Jakie trzy grupy płazów możemy wyróżnić?"
+            , answer: "questions/plazy2.html"
+            },
+            { category: "Płazy"
+            , level: 200
+            , question: "Stan odrętwienia w jaki wpadają płazy, gdy temperatura otoczenia jest zbyt niska to?"
+            , answer: "questions/plazy3.html"
+            },
+            { category: "Płazy"
+            , level: 200
+            , question: "Liczne, drobne otworki w skórze płazów to?"
+            , answer: "questions/plazy4.html"
+            },
+            { category: "Płazy"
+            , level: 500
+            , question: "Płazy oddychają za pomocą?"
+            , answer: "questions/plazy5.html"
+            },
+            { category: "Płazy"
+            , level: 500
+            , question: "Larwy żaby to?"
+            , answer: "questions/plazy6.html"
+            },
+            { category: "Płazy"
+            , level: 1000
+            , question: "Jaja żaby to?"
+            , answer: "questions/plazy7.html"
+            },
+            { category: "Płazy"
+            , level: 1000
+            , question: "Płazy to jedyne kręgowce które mają rozwój złożony. Prawda czy fałsz?"
+            , answer: "questions/plazy8.html"
+            },
+            { category: "Płazy"
+            , level: 1100
+            , question: "Wymień trzy płazy bezogonowe."
+            , answer: "questions/plazy9.html"
+            },
+            { category: "Płazy"
+            , level: 1100
+            , question: "Wymień dwa płazy ogoniaste żyjące w Polsce."
+            , answer: "questions/plazy10.html"
+            },
+            { category: "Płazy"
+            , level: 1100
+            , question: "Podaj gatunek płaza którego dotyczy ten opis: Płaz ogoniasty o wilgotnej i błyszczącej skórze, ubarwiony jest jaskrawo. Czarny i błyszczący wierzch ciała kontrastuje z żółtymi lub pomarańczowymi plamami bądź pasami."
+            , answer: "questions/plazy11.html"
+            },
+            { category: "Płazy"
+            , level: 1000
+            , question: "Płazy posiadają masywną klatkę piersiową. Prawda czy fałsz?"
+            , answer: "questions/plazy12.html"
+            },
+            { category: "Płazy"
+            , level: 500
+            , question: "Ile kłykci potylicznych posiadają płazy?"
+            , answer: "questions/plazy13.html"
+            },
+            { category: "Płazy"
+            , level: 200
+            , question: "Serce płaza składa się z komory i ilu przedsionków?"
+            , answer: "questions/plazy14.html"
+            },
+            { category: "Płazy"
+            , level: 200
+            , question: "Odmieniec jaskiniowy i Ambystoma meksykańska to przykłady płciowego rozmnażania się larw. Jak nazywamy ten proces?"
+            , answer: "questions/plazy15.html"
+            },
+            { category: "Płazy"
+            , level: 100
+            , question: "Płazy występują na wszystkich kontynentach. Prawda czy fałsz?"
+            , answer: "questions/plazy16.html"
+            },
+            { category: "Płazy"
+            , level: 100
+            , question: "Czy wśród płazów występują drapieżniki?"
+            , answer: "questions/plazy17.html"
+            },
+            { category: "Gady"
+            , level: 100
+            , question: "Rozwój płazów musi przebiegać w środowisku wodnym, ponieważ nie wykształciły tak jak gady...?"
+            , answer: "questions/gady1.html"
+            },
+            { category: "Gady"
+            , level: 200
+            , question: "Czy gady są zmiennocieplne?"
+            , answer: "questions/gady2.html"
+            },
+            { category: "Gady"
+            , level: 500
+            , question: "Czy w Polsce żyje jadowity wąż?"
+            , answer: "questions/gady3.html"
+            },
+            { category: "Gady"
+            , level: 1000
+            , question: "Czy gady są owodniowcami?"
+            , answer: "questions/gady4.html"
+            },
+            { category: "Gady"
+            , level: 1100
+            , question: "Czym różni się żmija od zaskrońca?"
+            , answer: "questions/gady5.html"
+            }
+          ]
+      };
+
+      main.ports.input.send(input);
+    </script>
+
+    <!-- jQuery first, then Bootstrap JS. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>
+  </body>
+</html>
+

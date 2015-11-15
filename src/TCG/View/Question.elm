@@ -57,7 +57,7 @@ render_answer address state q =
   [ h4 [ class "card-title" ]
     [ text state.tr.question.answer ]
   , iframe [ class "card"
-           , style [("width", "100%"), ("height", "500px")]
+           , style [("width", "100%"), ("height", "300px")]
            , src q.answer
            ] []
   , div [ class "text-center" ]

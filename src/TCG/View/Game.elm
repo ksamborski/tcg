@@ -59,9 +59,10 @@ renderCategory cat = th [ class "text-center" ] [ text cat ]
 renderRow : Address TcgAction -> TcgStateRecord -> Int -> Html
 renderRow address state level =
   tr []
-    <| List.map (\q -> renderQuestion address state q)
-    <| List.filter (\q -> q.level == level)
-    <| Dict.values state.game.questions
+    <| List.map (\c ->
+        let (Just q) = Dict.get (c, level) state.game.questions
+        in renderQuestion address state q)
+       state.game.categories
 
 renderQuestion : Address TcgAction -> TcgStateRecord -> Question -> Html
 renderQuestion address state q =
