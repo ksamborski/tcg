@@ -4,6 +4,7 @@ import List
 import Array exposing (Array)
 
 import TCG.Model.Translation exposing (..)
+import TCG.Utils exposing (..)
 
 translation : Translation
 translation =
@@ -44,7 +45,7 @@ translation =
                   <| Array.toList w)
                ++ " are the winners!"
           else
-            let (Just t) = Array.get 0 w
+            let t = fromJust <| Array.get 0 w
             in "Team " ++ t.teamName ++ " is a winner!"
     }
   }

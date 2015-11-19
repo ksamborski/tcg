@@ -13,6 +13,7 @@ import TCG.Model.Question exposing (..)
 import TCG.Model.Team exposing (..)
 import TCG.Model.Translation exposing (..)
 import TCG.Action exposing (..)
+import TCG.Utils exposing (..)
 
 view : Address TcgAction -> TcgState -> Html
 view address (TcgState state) =
@@ -21,7 +22,7 @@ view address (TcgState state) =
     [ h4 [ class "card-title" ]
       [ text state.tr.game.chooseQuestion ]
     , p [ class "card-text" ]
-      [ let (Just t) = Array.get state.game.active_team state.teams
+      [ let t = fromJust <| Array.get state.game.active_team state.teams
         in text <| state.tr.game.teamTurn t.teamName
       ]
     ]
@@ -60,7 +61,7 @@ renderRow : Address TcgAction -> TcgStateRecord -> Int -> Html
 renderRow address state level =
   tr []
     <| List.map (\c ->
-        let (Just q) = Dict.get (c, level) state.game.questions
+        let q = fromJust <| Dict.get (c, level) state.game.questions
         in renderQuestion address state q)
        state.game.categories
 

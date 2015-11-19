@@ -22,6 +22,7 @@ import TCG.View.Start as Start
 import TCG.View.Game as Game
 import TCG.View.EndGame as EndGame
 import TCG.View.Question as Question
+import TCG.Utils exposing (..)
 
 import TCG.Translation.En as En
 import TCG.Translation.Pl as Pl
@@ -30,57 +31,58 @@ update : TcgAction -> TcgState -> (TcgState, Effects TcgAction)
 update action (TcgState s) =
   case action of
     ChangeLanguage lang ->
-      ( TcgState { s | active_tr <- lang
-                     , tr <- case lang of
+      ( TcgState { s | active_tr = lang
+                     , tr = case lang of
                               Translation.En -> En.translation
                               Translation.Pl -> Pl.translation
                  }
       , Effects.none)
-    Input d -> (TcgState { s | data <- d }, Effects.none)
+    Input d -> (TcgState { s | data = d }, Effects.none)
     StartAction a -> Start.update a s
     StartGame -> (TcgState s, Effects.tick Randomize)
     QuestionAction a -> Question.update a s
     Randomize t ->
-      (TcgState { s | activeView <- Game.view
-                    , game <- randomize s
+      (TcgState { s | activeView = Game.view
+                    , game = randomize s
                             <| initialSeed <| round <| inMilliseconds t
                 }
       , Effects.none)
     ShowQuestion cat lev ->
       let sgame = s.game
-      in ( TcgState { s | game <- { sgame | active_question <- Just (cat, lev)
-                                          , seconds_left <- 30
-                                          , timer_stopped <- False
-                                          , last_tick <- Nothing
-                                          , show_answer <- False
+      in ( TcgState { s | game = { sgame | active_question = Just (cat, lev)
+                                          , seconds_left = 30
+                                          , timer_stopped = False
+                                          , last_tick = Nothing
+                                          , show_answer = False
                                   }
-                        , activeView <- Question.view
+                        , activeView = Question.view
                     }
          , Effects.tick (QuestionAction << UpdateTimerSeconds))
-    Restart -> ( TcgState { s | activeView <- Start.view
-                              , teams <- Array.map (\t -> {t | teamScore <- 0}) s.teams
+    Restart -> ( TcgState { s | activeView = Start.view
+                              , teams = Array.map (\t -> {t | teamScore = 0}) s.teams
                           }
                , Effects.none)
     AddPoints answered ->
       let sgame = s.game
-          (Just (qcat,qlev)) = s.game.active_question
-          (Just q) = Dict.get (qcat,qlev) sgame.questions
-          (Just ateam) = Array.get sgame.active_team s.teams
+          (qcat,qlev) = fromJust <| s.game.active_question
+          q = fromJust <| Dict.get (qcat,qlev) sgame.questions
+          ateam = fromJust <| Array.get sgame.active_team s.teams
           updatedQuestions = Dict.update (qcat,qlev)
-                                         (\(Just q') -> Just { q' | answered <- True })
+                                         (\mq' -> let q' = fromJust mq'
+                                                  in Just { q' | answered = True })
                                          sgame.questions
-      in ( TcgState { s | game <- { sgame | active_question <- Nothing
-                                          , active_team <-
-                                            if sgame.active_team + 1
-                                                >= Array.length s.teams
-                                              then 0
-                                              else sgame.active_team + 1
-                                          , questions <- updatedQuestions
+      in ( TcgState { s | game = { sgame | active_question = Nothing
+                                         , active_team =
+                                           if sgame.active_team + 1
+                                               >= Array.length s.teams
+                                             then 0
+                                             else sgame.active_team + 1
+                                         , questions = updatedQuestions
                                   }
-                        , teams <- Array.set sgame.active_team
-                            {ateam | teamScore <- ateam.teamScore + (if answered then q.level else 0)}
+                        , teams = Array.set sgame.active_team
+                            {ateam | teamScore = ateam.teamScore + (if answered then q.level else 0)}
                             s.teams
-                        , activeView <-
+                        , activeView =
                           if Dict.isEmpty
                              <| Dict.filter (\_ v -> not (v.answered))
                                             updatedQuestions
@@ -127,9 +129,9 @@ randomQuestions s cats levs qs =
        <| List.foldl
           (\c (s2, ls, acc) ->
             let randomget = \l (s', acc2) ->
-                  let (Just d) = Dict.get (c,l) qdict
+                  let d = fromJust <| Dict.get (c,l) qdict
                       (i, s3) = generate (int 0 ((Array.length d) - 1)) s'
-                      (Just el) = Array.get i d
+                      el = fromJust <| Array.get i d
                   in (s3, { category = el.category
                           , level = el.level
                           , question = el.question

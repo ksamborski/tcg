@@ -9,10 +9,12 @@ import Array exposing (Array)
 
 import TCG.Model exposing (TcgState(..), TcgStateRecord)
 import TCG.Action exposing (..)
+import TCG.Utils exposing (..)
 
 view : Address TcgAction -> TcgState -> Html
 view address (TcgState state) =
-  let (Just maxScore) = (List.maximum <| List.map (\t -> t.teamScore) <| Array.toList state.teams)
+  let maxScore = fromJust <| List.maximum <| List.map (\t -> t.teamScore)
+                  <| Array.toList state.teams
       winners = Array.filter (\t -> t.teamScore == maxScore) state.teams
   in div [ class "row", style [ ("margin-top", "50px") ] ]
      [ div [ class "col-md-8 col-md-offset-2" ]

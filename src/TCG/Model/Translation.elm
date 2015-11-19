@@ -43,3 +43,4 @@ intToLang : Int -> Language
 intToLang i = case i of
   0 -> En
   1 -> Pl
+  _ -> Debug.crash <| "Unrecognized language: " ++ (toString i)

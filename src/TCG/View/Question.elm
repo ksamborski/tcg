@@ -11,11 +11,12 @@ import TCG.Action exposing (..)
 import TCG.Action.Question exposing (..)
 import TCG.Model exposing (TcgState(..), TcgStateRecord)
 import TCG.Model.Question exposing (..)
+import TCG.Utils exposing (..)
 
 view : Address TcgAction -> TcgState -> Html
 view address (TcgState state) =
-  let (Just (qcat,qlev)) = state.game.active_question
-      (Just q) = Dict.get (qcat,qlev) state.game.questions
+  let (qcat,qlev) = fromJust <| state.game.active_question
+      q = fromJust <| Dict.get (qcat,qlev) state.game.questions
   in div [ class "card" ]
   [ div [ class "card-block" ]
     [ h4 [ class "card-title" ]
